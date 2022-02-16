@@ -1,2 +1,4 @@
 *.pyc
 praw.ini
+local_settings.py
+.ipynb_checkpoints/*
