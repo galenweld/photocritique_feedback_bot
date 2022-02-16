@@ -14,11 +14,14 @@ from tools import *
 
 subreddit = reddit.subreddit(TARGET_SUBREDDIT)
 
+print('Finished initializing. Streaming new comments.')
+
 
 # STREAM COMMENTS
-for comment in subreddit.stream.comments(pause_after=0):
+# for comment in subreddit.stream.comments(pause_after=0):
+for comment in subreddit.stream.comments(pause_after=None, skip_existing=True):
     # stream pauses when comment is none when pause_after is set to 0
-    # for deployment, set pause_after top None and probably add skip_existing=True
+    # for deployment, set pause_after=None and probably add skip_existing=True
     if comment is None:
         print("Stream paused.")
         break
