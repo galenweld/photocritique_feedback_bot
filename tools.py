@@ -21,7 +21,7 @@ def comment_contains_token(comment):
 
 
 
-def save_comment_information(awarding_comment):
+def save_comment_information(awarding_comment, awarded_comment, submission):
     '''
     Given a comment containing the feedback token, record to disk the information about this comment and its parents.
     
@@ -30,10 +30,7 @@ def save_comment_information(awarding_comment):
     the AWARDED COMMENT.
     '''
     # check to make sure awarding comment is not a top level comment
-    awarded_comment = reddit.comment(id=awarding_comment.parent_id[3:]) if awarding_comment.parent_id[:2]=='t1' else None
-    # get the post this discussion is regarding
-    submission      = reddit.submission(id=awarding_comment.link_id[3:])
-    
+
     comment_info = {
         'awarding_id'             : 't1_'+awarding_comment.id,
         'awarded_id'              : 't1_'+ awarded_comment.id,
@@ -68,16 +65,13 @@ def save_comment_information(awarding_comment):
         
         
         
-def acknowledge_awarding_comment(awarding_comment):
+def acknowledge_awarding_comment(awarding_comment, awarded_comment, submission):
     '''
     Given an awarding comment it, acknowledge it by replying to it.
     TODO also increment the awardee's flair and flair the submission.
     '''
     # can't award anything when the awarding comment is a top level post, for now we leave this as a no-op
-    if awarding_comment.parent_id[:2]=='t3': return
-    
-    awarded_comment = reddit.comment(id=awarding_comment.parent_id[3:])
-    submission      = reddit.submission(id=awarding_comment.link_id[3:])
+    if awarded_comment is None: return
     
     # make the reply
     reply = awarding_comment.reply(
@@ -94,8 +88,48 @@ def acknowledge_awarding_comment(awarding_comment):
     
     
     
-def follow_up_with_user(awarding_comment):
+def follow_up_with_user(awarding_comment, awarded_comment, submission):
     '''
-    todo
+    Generate a reply PM. TODO: need to add original double newlines back in. also need to make these strings
+    easier to edit, and probably move this whole shebang to a new file to manage responses.
     '''
-    pass
+    sentences = SEGMENTOR.split(awarded_comment.body)
+
+    # the match group gets us the divider, so to keep linebreaks we loop over every even-indexed segment and the one after
+    segments = []
+    for i in range(0, len(sentences), 2):
+        sentence  = sentences[i]
+        separator = sentences[i+1] if i+1<len(sentences) else None
+        
+        # replace single newlines with spaces, then strip whitespace
+        sentence = re.sub('\n', ' ', sentence).strip()
+        
+        # skip empty sentences
+        if len(sentence)==0: continue
+            
+        # check the separator, if it's two or more newlines, keep it
+        if (separator is not None) and (re.match(r'\n{2,}', separator) is not None):
+            sentence += '\n\n'
+            
+        segments.append(sentence)
+        
+    # finally, add quotes and numbers
+    segments = [f'> ({i+1}) {s}' for i, s in enumerate( segments )] # insert numbers
+
+    
+    reply = []
+    
+    reply.append(f'Thanks for indicating that [this comment]({awarded_comment.permalink}) by /u/{awarded_comment.author.name} was helpful.')
+    reply.append('Please let us know which part of the comment was most helpful.')
+    reply.append('Reply to this PM  with the number of the sentence(s) you found most useful.')
+    reply.append('You may reply with multiple numbers, or a range of numbers, e.g. 2-4,6.')
+    reply.append('\n')
+    reply += segments
+    
+    reply = '\n'.join(reply)
+
+    subject = f'Helpfulness points you awarded on post "{submission.title}" in /r/{TARGET_SUBREDDIT}'
+    if len(subject) >= 100:
+        trim = len(subject) - 99 + 3 #3 for '...'
+        subject = f'Helpfulness points you awarded on post "{submission.title[:-trim]}..." in /r/{TARGET_SUBREDDIT}'
+    awarding_comment.author.message(subject, reply)
