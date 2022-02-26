@@ -75,7 +75,7 @@ def acknowledge_awarding_comment(awarding_comment, awarded_comment, submission):
     
     # make the reply
     reply = awarding_comment.reply(
-        ACK_COMMENT.format(**{'awardee':awarded_comment.author.name, 'awarder':awarding_comment.author.name})
+        ACK_COMMENT.format(**{'awardee':awarded_comment.author.name, 'awarder':awarding_comment.author.name, 'awarding_permalink':awarding_comment.permalink})
     )
     # distinguish it (needs mod permissions)
     reply.mod.distinguish(how='yes')
@@ -122,14 +122,17 @@ def follow_up_with_user(awarding_comment, awarded_comment, submission):
     reply.append(f'Thanks for indicating that [this comment]({awarded_comment.permalink}) by /u/{awarded_comment.author.name} was helpful.')
     reply.append('Please let us know which part of the comment was most helpful.')
     reply.append('Reply to this PM  with the number of the sentence(s) you found most useful.')
-    reply.append('You may reply with multiple numbers, or a range of numbers, e.g. 2-4,6.')
+    reply.append('You may reply with multiple numbers, or a range of numbers, e.g. 1,3-5,7.')
     reply.append('\n')
     reply += segments
+    reply.append('\n')
+    reply.append('To opt out from recieving these messages again, reply with "optout".')
     
     reply = '\n'.join(reply)
 
-    subject = f'Helpfulness points you awarded on post "{submission.title}" in /r/{TARGET_SUBREDDIT}'
+    # IF YOU EDIT THIS, ALSO EDIT THE TRIMMED VERSION BELOW
+    subject = f'Helpfulness points you awarded on post "{submission.title}" in /r/{TARGET_SUBREDDIT} ({awarded_comment.id})'
     if len(subject) >= 100:
         trim = len(subject) - 99 + 3 #3 for '...'
-        subject = f'Helpfulness points you awarded on post "{submission.title[:-trim]}..." in /r/{TARGET_SUBREDDIT}'
+        subject = f'Helpfulness points you awarded on post "{submission.title[:-trim]}..." in /r/{TARGET_SUBREDDIT} ({awarded_comment.id})'
     awarding_comment.author.message(subject, reply)
