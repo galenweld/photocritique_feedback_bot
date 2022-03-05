@@ -29,3 +29,7 @@ FLAIR_TEMPLATE_ID = '7eeec638-8f07-11ec-8294-2a47d40d3100'
 SEGMENTOR = re.compile(r'(\n{2,}|\. |\? |! )')
 
 OPTOUT_PATTERN = re.compile(r'optout')
+
+# time range of posts to remind
+REMINDER_LOWER_BOUND, REMINDER_UPPER_BOUND = 48,54
+assert REMINDER_LOWER_BOUND <= REMINDER_UPPER_BOUND
