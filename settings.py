@@ -4,7 +4,8 @@ import os
 from local_settings import *
 # local settings: PATH_TO_STORE
 
-TARGET_SUBREDDIT = 'phcritiquetest'
+#TARGET_SUBREDDIT = 'phcritiquetest'
+TARGET_SUBREDDIT = 'photocritique'
 
 BOT_INFO_URL = 'todo'
 
@@ -26,7 +27,8 @@ FEEDBACK_TOKEN = re.compile('!CritiquePoint', re.IGNORECASE)
 ACK_COMMENT = 'Confirmed: 1 [helpfulness point awarded]({awarding_permalink}) to /u/{awardee} by /u/{awarder}.\n\n^(See [here]('+BOT_INFO_URL+') for more details.)'
 
 # ensure this is set in moderator settings, then get it using submission.flair.choices()
-FLAIR_TEMPLATE_ID = '7eeec638-8f07-11ec-8294-2a47d40d3100'
+FLAIR_TEMPLATE_ID = '7eeec638-8f07-11ec-8294-2a47d40d3100' # for phcritiquetest
+FLAIR_TEMPLATE_ID = 'aecd47a6-9f03-11ec-bd3c-bed2b38f4d69' # for photocritique
 
 
 SEGMENTOR = re.compile(r'(\n{2,}|\. |\? |! )')
