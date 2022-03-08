@@ -126,7 +126,7 @@ def follow_up_with_user(awarding_comment, awarded_comment, submission):
     reply.append('\n')
     reply += segments
     reply.append('\n')
-    reply.append('To opt out from recieving these messages again, reply with "optout".')
+    reply.append(f"To opt out from recieving these follow-up messages again, reply with '{FOLLOWUP_OPTOUT_PATTERN.pattern}'.")
     
     reply = '\n'.join(reply)
 

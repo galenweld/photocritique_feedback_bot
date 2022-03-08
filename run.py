@@ -12,6 +12,7 @@ from setup import reddit
 from settings import *
 from tools import *
 from inbox import check_messages
+from reminders import send_reminders
 
 subreddit = reddit.subreddit(TARGET_SUBREDDIT)
 
@@ -20,14 +21,15 @@ print('Finished initializing. Streaming new comments.')
 
 # STREAM COMMENTS
 for awarding_comment in subreddit.stream.comments(pause_after=5, skip_existing=True):
-    # stream pauses when comment is none when pause_after is not None
-    # for deployment, set pause_after=None and probably add skip_existing=True
+    # stream pauses when comment is None when pause_after is not set to None
 
     # stream is paused. check our PMs and send reminders.
     if awarding_comment is None:
-        print("Stream paused.")
+        print(datetime.datetime.now().strftime('[%X %x] '), end='')
+        print('Stream paused.')
         check_messages()
-        # TODO reminders
+        send_reminders()
+        print(datetime.datetime.now().strftime('[%X %x] '), end='')
         print('Restarting stream. Checking for new comments.')
     
     else:

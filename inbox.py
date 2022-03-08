@@ -39,14 +39,15 @@ def process_pm(message):
     Given a message (PRAW object) check to see if it's an unsubscribe request, otherwise process it.
     '''
     print(f'Processing PM {message.id} from /u/{message.author.name}.')
-    if OPTOUT_PATTERN.search(message.body) is not None:
-        # opt the user out
-        with open(OPTED_OUT_USERS_PATH, 'a') as f:
-            f.write(message.author.name+'\n')
-        # message them to confirm
-        message.author.message(OPTOUT_CONFIRMATION_SUBJECT, OUTOUT_CONFIRMATION_BODY)
-        print(f'\tOpted /u/{message.author.name} out from future messages.')
-        return
+    for optout_pattern, optout_type, optout_path in ((FOLLOWUP_OPTOUT_PATTERN, 'follow-ups', FOLLOWUP_OPTED_OUT_USERS_PATH), (REMINDER_OPTOUT_PATTERN, 'reminders', REMINDER_OPTED_OUT_USERS_PATH)):
+        if optout_pattern.search(message.body) is not None:
+            # opt the user out
+            with open(optout_path, 'a' if os.path.exists(optout_path) else 'w') as f:
+                f.write(message.author.name+'\n')
+            # message them to confirm
+            message.author.message(OPTOUT_CONFIRMATION_SUBJECT.format(optout_type), OUTOUT_CONFIRMATION_BODY)
+            print(f'\tOpted /u/{message.author.name} out from future {optout_type}.')
+            return
 
     else:
         # process the PM assuming it contains sentence number(s) to be recorded.
