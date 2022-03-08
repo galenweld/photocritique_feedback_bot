@@ -20,7 +20,7 @@ print('Finished initializing. Streaming new comments.')
 
 
 # STREAM COMMENTS
-for awarding_comment in subreddit.stream.comments(pause_after=5, skip_existing=True):
+for awarding_comment in subreddit.stream.comments(pause_after=8, skip_existing=True):
     # stream pauses when comment is None when pause_after is not set to None
 
     # stream is paused. check our PMs and send reminders.
@@ -49,7 +49,7 @@ for awarding_comment in subreddit.stream.comments(pause_after=5, skip_existing=T
 
             save_comment_information( awarding_comment, awarded_comment, submission )
             acknowledge_awarding_comment( awarding_comment, awarded_comment, submission ) # todo: user flair
-            if awarding_comment.author.name not in OPTED_OUT_USERS:
+            if awarding_comment.author.name not in FOLLOWUP_OPTED_OUT_USERS:
                 follow_up_with_user( awarding_comment, awarded_comment, submission )
             else:
                 print(f'\t/u/{awarding_comment.author.name} has opted out, not messaging.')

@@ -119,14 +119,16 @@ def follow_up_with_user(awarding_comment, awarded_comment, submission):
     
     reply = []
     
-    reply.append(f'Thanks for indicating that [this comment]({awarded_comment.permalink}) by /u/{awarded_comment.author.name} was helpful.')
-    reply.append('Please let us know which part of the comment was most helpful.')
+    reply.append(f'Thanks for indicating that [this comment]({awarded_comment.permalink}) by /u/{awarded_comment.author.name} should get a Critique Point!.')
+    reply.append('Please let us know which part(s) of the comment was most helpful.')
+    reply.append('This information helps the community learn what feedback is most valuable.')
     reply.append('Reply to this PM  with the number of the sentence(s) you found most useful.')
     reply.append('You may reply with multiple numbers, or a range of numbers, e.g. 1,3-5,7.')
     reply.append('\n')
     reply += segments
     reply.append('\n')
     reply.append(f"To opt out from recieving these follow-up messages again, reply with '{FOLLOWUP_OPTOUT_PATTERN.pattern}'.")
+    reply.append(f'For more details on Critique Points, see [here]({BOT_INFO_URL}).')
     
     reply = '\n'.join(reply)
 
