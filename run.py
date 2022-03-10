@@ -28,7 +28,7 @@ for awarding_comment in subreddit.stream.comments(pause_after=8, skip_existing=T
         print(datetime.datetime.now().strftime('[%X %x] '), end='')
         print('Stream paused.')
         check_messages()
-        # send_reminders() # reminders paused for launch
+        send_reminders()
         print(datetime.datetime.now().strftime('[%X %x] '), end='')
         print('Restarting stream. Checking for new comments.')
     

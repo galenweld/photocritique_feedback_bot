@@ -26,21 +26,22 @@ def send_reminders():
     for submission in subreddit.new(limit=None):
         submission_age = now - datetime.datetime.fromtimestamp( submission.created_utc )
         submission_age = submission_age.total_seconds() / 60**2 # convert to total hours
+#        print(f'Submission {submission.id} {submission.title} has age {submission_age:.1f} hours.')
                 
         if submission_age < REMINDER_LOWER_BOUND:
             continue # ignore too-young posts
             
         if (last_processed_post is not None) and (submission.id == last_processed_post):
-            print(f'Stopping at last processed post {submission.id}')
+            print(f'\tStopping at last processed post {submission.id}')
             break
         
         if submission_age > REMINDER_UPPER_BOUND:
-            print(f'No last processed post found. Stopping at older post {submission.id}.')
+            print(f'\tNo last processed post found. Stopping at older post {submission.id}.')
             break
             
-        print(f'Processing reminders for post {submission.id}')
+        print(f'\tProcessing reminders for post {submission.id}')
         send_reminder(submission)
-        if int(submission.id, 36) > int(new_last_processed_post, 36):
+        if new_last_processed_post is None or (int(submission.id, 36) > int(new_last_processed_post, 36)):
             # keep only the youngest post
             new_last_processed_post = submission.id
     
@@ -68,7 +69,7 @@ def send_reminder(submission):
     - the author has opted out from reminders, or
     - the submission already has a flair indicating it has recieved HPs from OP
     '''
-    if submission.link_flair_template_id == FLAIR_TEMPLATE_ID:
+    if hasattr(submission, 'link_flair_template_id') and (submission.link_flair_template_id == FLAIR_TEMPLATE_ID):
         print(f'\tSkipping sending reminder for submission {submission.id} as it already has points from OP')
         return
 

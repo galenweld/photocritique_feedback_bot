@@ -36,7 +36,7 @@ SEGMENTOR = re.compile(r'(\n{2,}|\. |\? |! )')
 # time range of posts to remind, in hours
 # for now, we're not keeping track of which posts have had reminder messages sent, and just using a narrow time window
 # we may wish to address this in the future
-REMINDER_LOWER_BOUND, REMINDER_UPPER_BOUND = 48,60
+REMINDER_LOWER_BOUND, REMINDER_UPPER_BOUND = 48+8,60
 assert REMINDER_LOWER_BOUND <= REMINDER_UPPER_BOUND
 
 
