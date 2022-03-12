@@ -96,6 +96,10 @@ def send_reminder(submission):
     reminder_body.append('\n')
     reminder_body.append(f"This message was sent by a bot. To opt out of future reminders such as this one, reply to this PM with '{REMINDER_OPTOUT_PATTERN.pattern}'.")
     
-    submission.author.message(reminder_subject, '\n'.join(reminder_body))
-    print(f'\tSent reminder PM to /u/{submission.author.name} for "{submission.title}"')
+    try:
+        submission.author.message(reminder_subject, '\n'.join(reminder_body))
+        print(f'\tSent reminder PM to /u/{submission.author.name} for "{submission.title}"')
+    except praw.exceptions.RedditAPIException as e:
+        print("Reddit API exception, skipping.")
+        print(e)
     return
