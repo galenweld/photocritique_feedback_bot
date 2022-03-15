@@ -69,6 +69,11 @@ def send_reminder(submission):
     - the author has opted out from reminders, or
     - the submission already has a flair indicating it has recieved HPs from OP
     '''
+    if submission.author is None:
+        print("\tCannot send reminder to invalid author.")
+        return
+
+
     if hasattr(submission, 'link_flair_template_id') and (submission.link_flair_template_id == FLAIR_TEMPLATE_ID):
         print(f'\tSkipping sending reminder for submission {submission.id} as it already has points from OP')
         return
