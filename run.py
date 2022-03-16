@@ -35,7 +35,7 @@ for awarding_comment in subreddit.stream.comments(pause_after=8, skip_existing=T
     else:
         # we have a comment, let's process it
         print(datetime.datetime.now().strftime('[%X %x] '), end='')
-        if comment_contains_token( awarding_comment ):
+        if awarding_comment.author.name != 'AutoModerator' and comment_contains_token( awarding_comment ):
             print(f'Awarding points based on comment {awarding_comment.id} by u/{awarding_comment.author.name}.')
 
             # Terminology:
