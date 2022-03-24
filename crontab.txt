@@ -1,0 +1,2 @@
+@reboot /homes/gws/gweld/photocritique_feedback_bot/remote_start.sh
+
