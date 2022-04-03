@@ -48,6 +48,11 @@ def run():
                 # get the post this discussion is regarding
                 submission      = reddit.submission(id=awarding_comment.link_id[3:])
 
+                # until we decide if we are going to permit "self promotion" of CritiquePoints, let's just ignore top-level comments
+                if awarded_comment is None:
+                    print('Skipping awarding point to top-level comment')
+                    continue
+
 
                 save_comment_information( awarding_comment, awarded_comment, submission )
                 acknowledge_awarding_comment( awarding_comment, awarded_comment, submission ) # todo: user flair
