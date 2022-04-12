@@ -137,4 +137,8 @@ def follow_up_with_user(awarding_comment, awarded_comment, submission):
     if len(subject) >= 100:
         trim = len(subject) - 99 + 3 #3 for '...'
         subject = f'Helpfulness points you awarded on post "{submission.title[:-trim]}..." in /r/{TARGET_SUBREDDIT} ({awarded_comment.id})'
-    awarding_comment.author.message(subject, reply)
+    try:
+        awarding_comment.author.message(subject, reply)
+    except praw.exceptions.RedditAPIException as e:
+        print('Failed to send message to author.')
+        print(e)
