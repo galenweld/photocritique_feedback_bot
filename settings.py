@@ -7,7 +7,7 @@ from local_settings import *
 #TARGET_SUBREDDIT = 'phcritiquetest'
 TARGET_SUBREDDIT = 'photocritique'
 
-BOT_INFO_URL = 'https://www.reddit.com/r/photocritique/comments/t9o7y7/introducing_critique_points_a_new_system_to/'
+BOT_INFO_URL = 'https://www.reddit.com/r/photocritique/wiki/critiquepoints'
 
 FOLLOWUP_OPTED_OUT_USERS_PATH = os.path.join(PATH_TO_STORE, TARGET_SUBREDDIT, 'donotfollowup.txt')
 REMINDER_OPTED_OUT_USERS_PATH = os.path.join(PATH_TO_STORE, TARGET_SUBREDDIT, 'donotremind.txt')
@@ -57,3 +57,15 @@ if os.path.exists(REMINDER_OPTED_OUT_USERS_PATH):
 		for user in f:
 			REMINDER_OPTED_OUT_USERS.add( user.strip() ) # need to ignore the newlines
 print(f'Loaded {len(REMINDER_OPTED_OUT_USERS):,d} users who have opted out from reminders.')
+
+
+# number of weeks to include when looking back at data for weekly sticky posts
+WEEKLY_STICKY_THREAD_TIME_PERIOD = 4 # weeks
+# note if this is increased to more than 1 month, the sticky script needs to be updated to include more than the two most recent files
+# also, if this is changed, you may also want to change the title of the sticky post (in `StickyThreadContent.py`) to "monthly," e.g.
+
+# number of top awardees to include in weekly sticky threads, can be more in case of ties
+NUM_TOP_AWARDEES = 3
+
+# number of top threads to inlucde in weekly sticky threads
+NUM_TOP_THREADS = 3
