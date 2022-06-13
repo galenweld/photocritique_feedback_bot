@@ -1,2 +1,2 @@
 @reboot /homes/gws/gweld/photocritique_feedback_bot/remote_start.sh
-
+0 4 1 * * /homes/gws/gweld/anaconda3/envs/pcbot/bin/python post_award_discussion_thread.py
