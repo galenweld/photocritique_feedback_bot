@@ -118,4 +118,5 @@ thread = subreddit.submit(
 
 thread.mod.distinguish()
 thread.mod.sticky(bottom=False)
+thread.mod.suggested_sort(sort='new')
 print('Done.')
