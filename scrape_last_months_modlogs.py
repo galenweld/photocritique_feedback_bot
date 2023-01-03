@@ -19,18 +19,24 @@ subreddit = reddit.subreddit(TARGET_SUBREDDIT)
 
 
 OUTPUT_PATH = os.path.join(PATH_TO_STORE, TARGET_SUBREDDIT, 'modlogs')
-TARGET_MONTH = datetime.date.today().month-1
+
+TARGET_MONTH = (datetime.date.today()-datetime.timedelta(days=27)).month
+TARGET_YEAR  = (datetime.date.today()-datetime.timedelta(days=27)).year
+TARGET_STRING = f'{TARGET_YEAR:04d}_{TARGET_MONTH:02d}'
+# using string comparison for easy month/year disambiguation
 
 
 modlogs = []
 for ma in subreddit.mod.log(limit=None):
+    # assumes modlogs will be sorted chronologically
     timestamp = datetime.datetime.fromtimestamp( ma.created_utc )
+    ml_month = f'{timestamp.year:04d}_{timestamp.month:02d}'
     
-    if timestamp.month < TARGET_MONTH:
+    if ml_month < TARGET_STRING:
         # we're done, stop
         break
     
-    elif timestamp.month == TARGET_MONTH:
+    elif ml_month == TARGET_STRING:
         # keep
         modlogs.append(ma)
     
