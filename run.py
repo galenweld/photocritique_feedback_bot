@@ -4,6 +4,7 @@ import csv
 import os
 import datetime
 import subprocess
+from time import sleep
 
 # THIRD PARTY IMPORTS
 import praw
@@ -68,6 +69,7 @@ def run():
 if __name__ == '__main__':
     try:
         run()
+        sleep(60)
 
     except Exception as e:
         mail_process = subprocess.Popen(['mail', '-s', 'Error with Photocritique Bot', 'gweld@cs.washington.edu'], stdin=subprocess.PIPE)
