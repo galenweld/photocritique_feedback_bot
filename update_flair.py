@@ -33,7 +33,7 @@ post_delay = post_delay.rename('time_since_last_award')
 if FLAIR_UPDATE_EXCLUDE_POINTS_OLDER_THAN_HOURS is not None:
     users_to_update = post_delay < pd.Timedelta(FLAIR_UPDATE_EXCLUDE_POINTS_OLDER_THAN_HOURS, unit='hours')
     num_points = num_points.reindex( users_to_update.index[users_to_update] )
-    print(f"Updating {users_to_update.sum():,d} users' flair", end='')
+    print(f"Updating {users_to_update.sum():,d} users' flair ", end='')
     print(f"who have received points in the last {FLAIR_UPDATE_EXCLUDE_POINTS_OLDER_THAN_HOURS} hours...")
 
 else:
