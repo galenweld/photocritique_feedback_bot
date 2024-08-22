@@ -26,9 +26,14 @@ FEEDBACK_TOKEN = re.compile('!CritiquePoint', re.IGNORECASE)
 
 ACK_COMMENT = 'Confirmed: 1 [helpfulness point awarded]({awarding_permalink}) to /u/{awardee} by /u/{awarder}.\n\nSee [here]('+BOT_INFO_URL+') for more details on Critique Points.'
 
+
+
+# Do not update the flair of users whose most recent points were recieved more than this many hours ago
+FLAIR_UPDATE_EXCLUDE_POINTS_OLDER_THAN_HOURS = 48 # set to None to update the flair of all users
+
 # ensure this is set in moderator settings, then get it using submission.flair.choices()
-FLAIR_TEMPLATE_ID = '7eeec638-8f07-11ec-8294-2a47d40d3100' # for phcritiquetest
-FLAIR_TEMPLATE_ID = 'aecd47a6-9f03-11ec-bd3c-bed2b38f4d69' # for photocritique
+# FLAIR_TEMPLATE_ID = 'd6c0ba08-5ffa-11ef-bc63-66f56e329fc8' # for phcritiquetest
+FLAIR_TEMPLATE_ID = 'd80fe2f4-9e77-11ec-b748-0e368bf5ca27' # for photocritique
 
 
 SEGMENTOR = re.compile(r'(\n{2,}|\. |\? |! )')
@@ -38,8 +43,6 @@ SEGMENTOR = re.compile(r'(\n{2,}|\. |\? |! )')
 # we may wish to address this in the future
 REMINDER_LOWER_BOUND, REMINDER_UPPER_BOUND = 48+8,60
 assert REMINDER_LOWER_BOUND <= REMINDER_UPPER_BOUND
-
-
 
 
 
