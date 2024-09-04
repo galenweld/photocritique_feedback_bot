@@ -48,7 +48,7 @@ for i, (username, score) in enumerate(num_points.items()):
     try:
         subreddit.flair.set(
             username,
-            flair_template_id=FLAIR_TEMPLATE_ID,
+            flair_template_id=USER_FLAIR_TEMPLATE_ID,
             text=flair_text
         )
 
@@ -58,6 +58,7 @@ for i, (username, score) in enumerate(num_points.items()):
         print(e)
     
     sleep(2)
+    print('Finished.')
 
 
 
