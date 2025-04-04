@@ -2,4 +2,4 @@
 @reboot /homes/gws/gweld/photocritique_feedback_bot/remote_start.sh
 0 4 1 * * /homes/gws/gweld/anaconda3/envs/pcbot/bin/python /homes/gws/gweld/photocritique_feedback_bot/post_award_discussion_thread.py
 0 1 3 * * /homes/gws/gweld/anaconda3/envs/pcbot/bin/python /homes/gws/gweld/photocritique_feedback_bot/scrape_last_months_modlogs.py
-@hourly /homes/gws/gweld/anaconda3/envs/pcbot/bin/python /homes/gws/gweld/photocritique_feedback_bot/update_flair.py > /dev/null
+@hourly /homes/gws/gweld/anaconda3/envs/pcbot/bin/python /homes/gws/gweld/photocritique_feedback_bot/update_flair.py > /dev/null 2>&1
