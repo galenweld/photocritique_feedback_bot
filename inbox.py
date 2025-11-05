@@ -32,6 +32,18 @@ def parse_sentence_numbers(s):
         
     return nums
 
+def get_last_sent_to_user(username, limit=100):
+    '''
+    Since reddit changed to chat, we can't use the subject to figure out what post they are repling to.
+    Instead, we need to figure this out based on the last message that we sent them (which presumably)
+    they are replying to.
+    '''
+    for message in reddit.inbox.sent(limit=limit):
+        if message.dest.name == username:
+            print(f'\tFound message to u/{username} starting with {message.body[:100]}')
+            return message
+    return None
+
 
 
 def process_pm(message):
@@ -55,9 +67,13 @@ def process_pm(message):
         if len(sentence_indices) == 0:
             print(f'\tNo sentence indices, skipping.')
             return
-        awarded_comment_id = re.search(r'\((\w*)\)', message.subject) # make sure this re stays consistent with the message subject
+        last_message_to_user = get_last_sent_to_user(message.author)
+        if last_message_to_user is None:
+            print(f'\tNo recent messages sent to them, skipping.')
+            return
+        awarded_comment_id = re.search(r'\((\w*)\)', last_message_to_user.body) # make sure this re stays consistent with the message subject
         if awarded_comment_id is None:
-            print(f'\tUnable to locate an awarded comment id in PM subject, skipping.')
+            print(f'\tUnable to locate an awarded comment id in last message we sent to them, skipping.')
             return
         awarded_comment_id = awarded_comment_id[1] # get match group
 
