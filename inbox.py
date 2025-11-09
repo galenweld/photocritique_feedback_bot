@@ -67,7 +67,7 @@ def process_pm(message):
         if len(sentence_indices) == 0:
             print(f'\tNo sentence indices, skipping.')
             return
-        last_message_to_user = get_last_sent_to_user(message.author)
+        last_message_to_user = get_last_sent_to_user(message.author, limit=500)
         if last_message_to_user is None:
             print(f'\tNo recent messages sent to them, skipping.')
             return
