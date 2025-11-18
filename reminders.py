@@ -100,6 +100,7 @@ def send_reminder(submission):
     reminder_body.append(f'See [here]({BOT_INFO_URL}) for more information on Critique Points.')
     reminder_body.append('\n')
     reminder_body.append(f"This message was sent by a bot. To opt out of future reminders such as this one, reply to this PM with '{REMINDER_OPTOUT_PATTERN.pattern}'.")
+    reminder_body.append('\n\nANNOUNCEMENT: You can win a new camera by trying Photocritique Coach, our browser extension that coaches you on your critiques! [More details here!](https://www.reddit.com/r/photocritique/comments/1opn63v/make_your_critiques_even_better_and_win_a_new/)')
     
     try:
         submission.author.message(reminder_subject, '\n'.join(reminder_body))

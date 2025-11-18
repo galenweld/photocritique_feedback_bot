@@ -67,7 +67,7 @@ print(
 
 # ## get ready to send messages
 import sys
-sys.path.append('..')
+sys.path.append('/homes/gws/gweld/photocritique_feedback_bot')
 from setup import reddit
 
 

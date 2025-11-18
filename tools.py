@@ -129,6 +129,7 @@ def follow_up_with_user(awarding_comment, awarded_comment, submission):
     reply.append('\n')
     reply.append(f"To opt out from recieving these follow-up messages again, reply with '{FOLLOWUP_OPTOUT_PATTERN.pattern}'.")
     reply.append(f'For more details on Critique Points, see [here]({BOT_INFO_URL}).')
+    reply.append('\n\nANNOUNCEMENT: You can win a new camera by trying Photocritique Coach, our browser extension that coaches you on your critiques! [More details here!](https://www.reddit.com/r/photocritique/comments/1opn63v/make_your_critiques_even_better_and_win_a_new/)')
     
     reply = '\n'.join(reply)
 
