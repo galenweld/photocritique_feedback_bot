@@ -190,7 +190,7 @@ def message_homework(username, enrollment_duration, posts_to_assign):
     )
     
     for post in posts_to_assign:
-        formatted_message += f'* [{post.title}](https://www.reddit.com/r/{post.permalink})\n'
+        formatted_message += f'* [{post.title}](https://www.reddit.com{post.permalink})\n\n'
     
     formatted_message += HOMEWORK_MSG_END
     
