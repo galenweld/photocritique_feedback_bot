@@ -24,7 +24,7 @@ REMINDER_OPTOUT_PATTERN = re.compile(r'optout reminders')
 
 FEEDBACK_TOKEN = re.compile('!CritiquePoint', re.IGNORECASE)
 
-ACK_COMMENT = 'Confirmed: 1 [helpfulness point awarded]({awarding_permalink}) to /u/{awardee} by /u/{awarder}.\n\nSee [here]('+BOT_INFO_URL+') for more details on Critique Points.\n\nANNOUNCEMENT: You can win a new camera by trying Photocritique Coach, our browser extension that coaches you on your critiques! [More details here!](https://www.reddit.com/r/photocritique/comments/1opn63v/make_your_critiques_even_better_and_win_a_new/)'
+ACK_COMMENT = 'Confirmed: 1 [helpfulness point awarded]({awarding_permalink}) to /u/{awardee} by /u/{awarder}.\n\nSee [here]('+BOT_INFO_URL+') for more details on Critique Points.\n\nANNOUNCEMENT: You can win new camera gear by trying Photocritique Coach, our browser extension that coaches you on your critiques! [More details here!](https://www.reddit.com/r/photocritique/wiki/browserextension)'
 
 
 
